@@ -84,10 +84,6 @@ export const AuthProvider = ({ children }) => {
     else setLoading(false);
   }, []);
 
-  if (loading) {
-    return <Loader />;
-  }
-
   return (
     <AuthContext.Provider value={{ user, menus, loading, login, logout }}>
       {children}
