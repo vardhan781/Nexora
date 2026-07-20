@@ -7,6 +7,8 @@ const api = axios.create({
   },
 });
 
+let isRedirecting = false;
+
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
@@ -25,11 +27,13 @@ api.interceptors.response.use(
   (error) => {
     const status = error.response?.status;
 
-    if (status === 401) {
+    if (status === 401 && !isRedirecting) {
+      isRedirecting = true;
+
       localStorage.removeItem("token");
       document.documentElement.classList.remove("dark");
 
-      window.location.replace = "/login";
+      window.location.replace("/login");
     }
 
     return Promise.reject(error);

@@ -32,10 +32,11 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     const response = await api.post("/auth/login", { email, password });
 
-    const { token, user } = response.data.data;
-    localStorage.setItem("token", token);
-    setUser(user);
+    const { token } = response.data.data;
 
+    localStorage.setItem("token", token);
+
+    await getCurrentUser();
     await getSidebarMenus();
 
     return response.data;
@@ -44,16 +45,15 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     localStorage.removeItem("token");
     document.documentElement.classList.remove("dark");
+
     setUser(null);
+    setMenus([]);
   };
 
   const getCurrentUser = async () => {
-    try {
-      const response = await api.get("/auth/me");
-      setUser(response.data.data);
-    } catch {
-      logout();
-    }
+    const response = await api.get("/auth/me");
+
+    setUser(response.data.data);
   };
 
   const getSidebarMenus = async () => {
@@ -70,7 +70,8 @@ export const AuthProvider = ({ children }) => {
 
   const getInitialData = async () => {
     try {
-      await Promise.all([getCurrentUser(), getSidebarMenus()]);
+      await getCurrentUser();
+      await getSidebarMenus();
     } finally {
       setLoading(false);
     }
@@ -83,11 +84,9 @@ export const AuthProvider = ({ children }) => {
     else setLoading(false);
   }, []);
 
-  useEffect(() => {
-    if (!loading && !user && location.pathname !== "/login") {
-      navigate("/login", { replace: true });
-    }
-  }, [loading, user, location.pathname, navigate]);
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <AuthContext.Provider value={{ user, menus, loading, login, logout }}>
