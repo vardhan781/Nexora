@@ -70,26 +70,36 @@ const MainLayout = ({ children }) => {
 
       {isMobile && isSidebarOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black/20 backdrop-blur-[2px] transition-all duration-300"
           onClick={() => setIsSidebarOpen(false)}
+          className={`fixed inset-0 z-40 bg-black/20 backdrop-blur-[2px] transition-opacity duration-300 ${
+            isMobile && isSidebarOpen
+              ? "opacity-100 pointer-events-auto"
+              : "pointer-events-none opacity-0"
+          }`}
         />
       )}
 
-      {isMobile && isSidebarOpen && (
-        <div className="fixed left-0 top-0 z-50 h-full">
-          <Sidebar
-            user={{
-              name: `${user?.firstName || ""} ${user?.lastName || ""}`.trim(),
-              role: user?.role?.roleName || "",
-              avatar:
-                `${user?.firstName?.[0] || ""}${user?.lastName?.[0] || ""}`.toUpperCase(),
-            }}
-            menus={menus}
-            dropdownItems={dropdownItems}
-            onClose={() => setIsSidebarOpen(false)}
-          />
-        </div>
-      )}
+      <div
+        className={`fixed left-0 top-0 z-50 h-dvh transform transition-transform duration-300 ease-in-out ${
+          isMobile
+            ? isSidebarOpen
+              ? "translate-x-0"
+              : "-translate-x-full"
+            : "hidden"
+        }`}
+      >
+        <Sidebar
+          user={{
+            name: `${user?.firstName || ""} ${user?.lastName || ""}`.trim(),
+            role: user?.role?.roleName || "",
+            avatar:
+              `${user?.firstName?.[0] || ""}${user?.lastName?.[0] || ""}`.toUpperCase(),
+          }}
+          menus={menus}
+          dropdownItems={dropdownItems}
+          onClose={() => setIsSidebarOpen(false)}
+        />
+      </div>
 
       <div className="flex flex-1 flex-col min-w-0">
         <Header

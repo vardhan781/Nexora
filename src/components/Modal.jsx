@@ -88,7 +88,7 @@ export const Modal = ({
   return (
     <>
       <div
-        className="fixed inset-0 z-50 bg-black/35 backdrop-blur-xs transition-all duration-200"
+        className="fixed h-screen inset-0 z-50 bg-black/35 backdrop-blur-xs transition-all duration-200"
         onClick={handleOutsideClick}
       />
 
