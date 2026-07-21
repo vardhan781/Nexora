@@ -88,15 +88,15 @@ export const Modal = ({
   return (
     <>
       <div
-        className="fixed inset-0 z-50 bg-black/35 backdrop-blur-xs transition-all duration-200 h-screen"
+        className="fixed inset-0 z-50 bg-black/35 backdrop-blur-xs transition-all duration-200"
         onClick={handleOutsideClick}
       />
 
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto p-4">
         <div
           ref={modalRef}
           className={cn(
-            "relative flex flex-col bg-background rounded-lg shadow-xl w-full max-h-[90vh]",
+            "relative flex flex-col w-full rounded-lg bg-background shadow-xl max-h-[90dvh]",
             sizeStyles[size],
             className,
           )}
@@ -131,7 +131,12 @@ export const Modal = ({
           </div>
 
           {showFooter && (
-            <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-border">
+            <div
+              className="flex items-center justify-end gap-3 border-t border-border px-6 pt-4"
+              style={{
+                paddingBottom: "calc(1rem + env(safe-area-inset-bottom))",
+              }}
+            >
               {cancelText && (
                 <Button
                   variant="outline"

@@ -237,7 +237,7 @@ const SidebarContent = ({
   return (
     <div className="relative h-full">
       <aside
-        className={`relative flex h-screen flex-col bg-sidebar transition-[width] duration-300 ease-in-out overflow-hidden border-r border-sidebar-border ${
+        className={`relative flex h-dvh flex-col bg-sidebar transition-[width] duration-300 ease-in-out overflow-hidden border-r border-sidebar-border ${
           collapsed ? "w-20" : "w-70"
         }`}
       >

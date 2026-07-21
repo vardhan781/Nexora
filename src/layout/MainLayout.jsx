@@ -53,7 +53,7 @@ const MainLayout = ({ children }) => {
   ];
 
   return (
-    <div className="flex h-screen bg-background">
+    <div className="flex h-dvh bg-background overflow-hidden">
       <div className="hidden md:block">
         <Sidebar
           user={{

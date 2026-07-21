@@ -26,8 +26,9 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     const status = error.response?.status;
+    const url = error.config?.url;
 
-    if (status === 401 && !isRedirecting) {
+    if (status === 401 && !url?.endsWith("/auth/login") && !isRedirecting) {
       isRedirecting = true;
 
       localStorage.removeItem("token");
