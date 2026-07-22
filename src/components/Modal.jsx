@@ -96,7 +96,7 @@ export const Modal = ({
         <div
           ref={modalRef}
           className={cn(
-            "relative flex flex-col w-full rounded-lg bg-background shadow-xl max-h-[90dvh]",
+            "relative flex flex-col w-full rounded-lg bg-background shadow-xl min-h-105 max-h-[90dvh]",
             sizeStyles[size],
             className,
           )}
