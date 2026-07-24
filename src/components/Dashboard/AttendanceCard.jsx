@@ -75,7 +75,7 @@ const AttendanceCard = ({
                     hour: "2-digit",
                     minute: "2-digit",
                   })
-                : "-"
+                : "Not Yet"
             }
           />
 
@@ -88,7 +88,7 @@ const AttendanceCard = ({
                     hour: "2-digit",
                     minute: "2-digit",
                   })
-                : "-"
+                : "Not Yet"
             }
           />
 
